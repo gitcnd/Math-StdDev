@@ -1,11 +1,8 @@
-# Xojo (formerly REALbasic and Real Studio)
+# CPAN temp files
 
-Builds*
-*.debug
-*.debug.app
-Debug*.exe
-Debug*/Debug*.exe
-Debug*/Debug*\ Libs
-*.rbuistate
-*.xojo_uistate
-*.obsolete
+MYMETA.json
+MYMETA.yml
+Makefile
+Makefile.old
+blib/*
+blib

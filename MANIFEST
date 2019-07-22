@@ -1,0 +1,10 @@
+Changes
+Makefile.PL
+MANIFEST
+README
+README.md
+t/Math-StdDev.t
+lib/Math/StdDev.pm
+cpanfile
+.gitignore
+LICENSE
