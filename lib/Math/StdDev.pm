@@ -81,6 +81,13 @@ sub new {
   bless $this,$class;
   if(defined $_[0]) {
     $this->Update(@_);	# Include anything passed into the new()
+    # Also compute the exact correct result using the 2-pass method, in case they're not going to provide more samples later
+    my $s=0;$s+=$_ foreach(@_);
+    my $m=$s/(1+$#_);
+    my $v=0;$v+=($_-$m)**2 foreach(@_);
+    $this->{exactMean}=$m;
+    $this->{exactVariance}=($v/(1+$#_))**.5;
+    $this->{exactSampleVariance}=($v/($#_))**.5 if($#_>0);
   }
 
   return $this;
@@ -122,24 +129,28 @@ sub Update {
     my $delta2 = $newValue - $this->{mean};
     $this->{M2} += $delta * $delta2;
   }
+  undef($this->{exactMean}); # switch over to online method instead of two-pass method
 } # Update
 
 sub mean {
   my $this = shift;
   if($this->{count}<1) { return undef; }
+  return $this->{exactMean} if(defined $this->{exactMean});
   return $this->{mean};
 }
 
 sub variance {
   my $this = shift;
   if($this->{count}<1) { return undef; }
-  return $this->{M2}/$this->{count};
+  return $this->{exactVariance} if(defined $this->{exactMean});
+  return ($this->{M2}/$this->{count})**0.5;
 }
 
 sub sampleVariance {
   my $this = shift;
   if($this->{count}<2) { return undef; }
-  return $this->{M2}/($this->{count}-1);
+  return $this->{exactSampleVariance} if(defined $this->{exactMean});
+  return ($this->{M2}/($this->{count}-1))**0.5;
 }
 
 
