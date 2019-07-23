@@ -56,6 +56,24 @@ Usage is
 or
     my $d->Update(@list_of_scalars);
 
+=head2 mean()
+
+Usage is
+
+    print $d->mean();
+
+=head2 variance
+
+Usage is
+
+    print $d->variance();
+
+=head2 sampleVariance
+
+(same as variance, but uses n-1 divisor.)  Usage is:
+
+    print $d->sampleVariance();
+
 =cut
 
 require Exporter;
