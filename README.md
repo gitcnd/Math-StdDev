@@ -72,7 +72,7 @@ Usage is
     print $d->variance();
 ```
 
-## sampkleVariance
+## sampleVariance
 
 (same as variance, but uses n-1 divisor.)  Usage is:
 
